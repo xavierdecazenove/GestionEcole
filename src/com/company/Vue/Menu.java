@@ -3,9 +3,10 @@ package com.company.Vue;
 import com.company.Controller.Connexion;
 import com.company.Controller.Controller;
 import com.company.Model.*;
-import com.company.Model.Class.Niveau;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,13 +39,12 @@ public class Menu extends JFrame implements ActionListener {
     private JTable table;
     private ModelTableau modelTableau;
 
-    private String[] entetes;
-
     private Connexion connexion;
 
     public Menu(Connexion connexion){
 
         this.connexion = connexion;
+        // Initialisation : BarMenu en header
         BarMenu barMenu = new BarMenu(this, connexion);
 
         this.setTitle("Projet Java");
@@ -53,16 +53,19 @@ public class Menu extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);
         this.container.setLayout(new BorderLayout());
 
+        // Initialisation : Grille pour le header Menu
         this.menu.setLayout(new GridLayout(1,3));
         this.menu.add(barMenu.getButton1());
         this.menu.add(barMenu.getButton2());
         this.menu.add(barMenu.getButton3());
 
+        // Initialisation : Grille pour le bottom Menu
         this.edit.setLayout(new GridLayout(1,3));
         this.edit.add(this.rechercher);
         this.edit.add(this.ajouter);
         this.edit.add(this.supprimer);
 
+        // Initialisation : Grille pour les Boutons de Gauche
         this.choix.setLayout(new GridLayout(8,1));
         this.choix.add(this.ecole);
         this.choix.add(this.niveau);
@@ -73,17 +76,17 @@ public class Menu extends JFrame implements ActionListener {
         this.choix.add(this.bulletin);
         this.choix.add(this.evaluation);
 
-        // Table
+        // Initialisation : Tableau
         this.content.setLayout(new GridBagLayout());
-        entetes = new String[]{"Id","Nom"};
-        this.modelTableau = new ModelTableau(this.connexion,new ArrayList<Niveau>(),entetes,"Niveau");
+        this.modelTableau = new ModelTableau(this.connexion,new ArrayList<>(),new String[0],"init");
         table = new JTable(this.modelTableau);
         JScrollPane column = new JScrollPane(table);
 
+        // Initialisation : Couleur transparent pour le centre de la grille
         this.content.add(column);
         this.content.setBackground(new Color(0,0,0,0));
 
-
+        // Initialisation : Listeneur pour les boutons du Menu
         this.ajouter.addActionListener(this);
         this.rechercher.addActionListener(this);
         this.supprimer.addActionListener(this);
@@ -96,7 +99,7 @@ public class Menu extends JFrame implements ActionListener {
         this.bulletin.addActionListener(this);
         this.evaluation.addActionListener(this);
 
-
+        // Initialisation : COntraintes de position
         this.container.add(this.content, BorderLayout.CENTER);
         this.container.add(this.edit, BorderLayout.SOUTH);
         this.container.add(this.menu, BorderLayout.NORTH);
@@ -110,16 +113,18 @@ public class Menu extends JFrame implements ActionListener {
         JButton button = (JButton) e.getSource();
         Controller controller = new Controller(connexion);
 
+        // Action : Supprime de la table et de la BDD l'element sélectionner
         if(button.getText().equals("Supprimer")){
             int[] selection = table.getSelectedRows();
             for(int i = selection.length - 1; i >= 0; i--){
                 modelTableau.removeItem(selection[i]);
             }
         }
-
+        // Action : Affiche un formulaire pour ajouter un nouvel élément à la BDD
         if(button.getText().equals("Ajouter")){
             if(modelTableau.getTable().equals("Ecole")){
-
+                Ajout ajout = new Ajout(modelTableau,"Ecole", ModelAjoutData.accessLabel("Ecole"), ModelAjoutData.accessTexField("Ecole"),ModelAjoutData.accessComboBox("Ecole"),ModelAjoutData.accessNumberLabelComboBox("Ecole"));
+                ajout.setVisible(true);
             }
             if(modelTableau.getTable().equals("Niveau")){
             }
@@ -138,6 +143,7 @@ public class Menu extends JFrame implements ActionListener {
             if(modelTableau.getTable().equals("Evaluation")){
             }
         }
+        // Action : Recherche l'élément en lien avec celui sélectionner dans l'arbre des dépendances de la BDD
         if(button.getText().equals("Rechercher")){
             int[] selection = table.getSelectedRows();
             for(int i = selection.length - 1; i >= 0; i--){
@@ -146,9 +152,14 @@ public class Menu extends JFrame implements ActionListener {
                 } catch (SQLException | ClassNotFoundException ex) {
                     ex.printStackTrace();
                 }
-                this.entetes = modelTableau.getList().get(0).getEntetes();
             }
         }
+
+
+
+        //****** Action : Charge un nouveau model de tableau en fonction du bouton appuyer ******//
+
+
         if (button.getText().equals("Ecoles")){
             try {
                 modelTableau = modelTableau.changeItemOnClick(controller.ecolesBDD());
@@ -206,5 +217,27 @@ public class Menu extends JFrame implements ActionListener {
             }
         }
 
+    }
+
+    private JComponent createAlternating(AbstractTableModel model)
+    {
+        JTable table = new JTable( model )
+        {
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column)
+            {
+                Component c = super.prepareRenderer(renderer, row, column);
+
+                //  Alternate row color
+
+                if (!isRowSelected(row))
+                    c.setBackground(row % 2 == 0 ? getBackground() : Color.LIGHT_GRAY);
+
+                return c;
+            }
+        };
+
+        table.setPreferredScrollableViewportSize(table.getPreferredSize());
+        table.changeSelection(0, 0, false, false);
+        return new JScrollPane( table );
     }
 }

@@ -13,9 +13,10 @@ import org.jfree.data.*;
 
 public class Graphique extends JFrame {
     private JPanel pnl;
-    private Connexion connexion;
 
     public Graphique(Connexion connexion) throws SQLException, ClassNotFoundException {
+
+        // Initialisation : créer un listeneur pour fermer la fenetre quand on quitte
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 dispose();
@@ -25,11 +26,14 @@ public class Graphique extends JFrame {
         this.setLocationRelativeTo(null);
         pnl = new JPanel(new BorderLayout());
 
+        // Initialisation : Récupération des requètes nécessaires à l'affichage des graphes
         ArrayList<String> nomNiveau = connexion.remplirChampsRequete("SELECT Niveau.Nom FROM Niveau","NomNiveau");
         ArrayList<String> personnes;
 
+        // Initialisation : Appel fonction pour construire un Camembert
         DefaultPieDataset pieDataset = new DefaultPieDataset();
         for (int i=0; i<nomNiveau.size(); i++){
+            // Initialisation : Récupération des requètes nécessaires à l'affichage des graphes
             personnes = connexion.remplirChampsRequete("SELECT Personne.Id FROM Personne,Classe,Inscription,Niveau WHERE Personne.Id = Inscription.IdPersonne AND Classe.Id = Inscription.IdClasse AND Classe.IdNiveau = Niveau.Id AND Niveau.Nom = '"+nomNiveau.get(i)+"'","ING");
             pieDataset.setValue(nomNiveau.get(i), personnes.size());
         }
@@ -37,6 +41,7 @@ public class Graphique extends JFrame {
         ChartPanel cPanel = new ChartPanel(pieChart);
         cPanel.setPreferredSize(new Dimension(400,400));
 
+        // Initialisation : Appel fonction pour construire un graphe courbe
         DefaultCategoryDataset lineDataset = new DefaultCategoryDataset( );
         lineDataset.addValue( 15 , "Inscriptions" , "2015" );
         lineDataset.addValue( 30 , "Inscriptions" , "2016" );
@@ -55,9 +60,11 @@ public class Graphique extends JFrame {
         row.add("BETWEEN 10 AND 15");
         row.add("> 15");
 
+        // Initialisation : Appel fonction pour construire un histogramme
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (int j=0; j<row.size(); j++){
             for (int i=0; i<nomNiveau.size(); i++){
+                // Initialisation : Récupération des requètes nécessaires à l'affichage des graphes
                 personneNumber = connexion.remplirChampsRequete("SELECT COUNT(Personne.Id) FROM Personne,Inscription,Bulletin,DetailBulletin,Evaluation,Classe,Niveau WHERE Personne.Id = Inscription.IdPersonne AND Inscription.Id = Bulletin.IdInscription AND Bulletin.Id = DetailBulletin.IdBulletin AND DetailBulletin.Id = Evaluation.IdDetailBulletin AND Inscription.IdClasse = Classe.Id AND Niveau.Id = Classe.IdNiveau AND Niveau.Nom = '"+nomNiveau.get(i)+"' AND Evaluation.Note "+row.get(j),"ING");
                 dataset.addValue(personneNumber.get(0), row.get(j), nomNiveau.get(i));
             }
@@ -66,6 +73,7 @@ public class Graphique extends JFrame {
         ChartPanel cPanel2 = new ChartPanel(barChart);
         cPanel2.setPreferredSize(new Dimension(400,400));
 
+        // Initialisation : contraite de position
         pnl.add(cPanel,BorderLayout.WEST);
         pnl.add(cPanel1,BorderLayout.EAST);
         pnl.add(cPanel2,BorderLayout.CENTER);

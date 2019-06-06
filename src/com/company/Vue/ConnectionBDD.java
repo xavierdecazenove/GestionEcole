@@ -34,8 +34,11 @@ public class ConnectionBDD extends JFrame implements ActionListener{
         this.setLocationRelativeTo(null);
         this.container.setLayout(new GridBagLayout());
 
+        // Initialisation : Label nécessaire au formulaire de connexion
         this.initLabelTextField();
+        // Initialisation : d'un listener pour lancer la connection à la BDD
         this.login.addActionListener(this);
+        // Initialisation : de la grille contenant les champs du formulaire
         this.initGridBagLayout();
 
         this.setContentPane(this.container);

@@ -37,7 +37,7 @@ public class Ajout  extends JFrame implements ActionListener {
         this.table = table;
 
         this.setTitle("Formulaire Ajout");
-        this.setSize(400, 200);
+        this.setSize(420, 280);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.container.setBorder(new EmptyBorder(20,20,20,20));
@@ -46,10 +46,12 @@ public class Ajout  extends JFrame implements ActionListener {
         this.ajouter.addActionListener(this);
         this.retour.addActionListener(this);
 
+        // Initialisation : du nombre de labels et textfield nécessairent pour un CERTAINS Ajout
         for (int i=0; i<(this.labels.size()-numberComboBox); i++){
             this.container.add(this.labels.get(i));
             this.container.add(this.textFields.get(i));
         }
+        // Initialisation : des comboBox nécessaires
         if (this.comboBoxes != null){
             for (int i=0; i<numberComboBox; i++){
                 this.container.add(this.labels.get(i + this.labels.size() - numberComboBox));
@@ -69,12 +71,14 @@ public class Ajout  extends JFrame implements ActionListener {
         JButton button = (JButton) e.getSource();
 
         if (button.getText().equals("Ajouter")){
+            // Action : check si les textfields sont remplient
             boolean ok = true;
             for (int i=0; i<this.textFields.size(); i++){
                 if (this.textFields.get(i).getText() == null){
                     ok = false;
                 }
             }
+            // Action : rajoute un item au tableau en fonction du Type
             if (ok){
                 if (table.equals("Personne")){
                     Personne personne = new Personne(Integer.parseInt(textFields.get(0).getText()),textFields.get(1).getText(), textFields.get(2).getText(),(String) Objects.requireNonNull(this.comboBoxes.get(0).getSelectedItem()));
@@ -89,6 +93,7 @@ public class Ajout  extends JFrame implements ActionListener {
                 dispose();
             }
         }
+        // Action : cancel l'ajout d'élément
         if (button.getText().equals("Retour")){
             dispose();
         }
