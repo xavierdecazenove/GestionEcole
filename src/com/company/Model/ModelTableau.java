@@ -1,6 +1,9 @@
 package com.company.Model;
 
 import com.company.Controller.Connexion;
+import com.company.Controller.Controller;
+
+import javax.naming.ldap.Control;
 import javax.swing.table.AbstractTableModel;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,6 +24,7 @@ public class ModelTableau extends AbstractTableModel {
         this.table = table;
 
         try {
+            Controller controller = new Controller(connexion);
             this.list = this.connexion.remplirChampsRequete("SELECT * FROM "+this.table, this.table);
             System.out.println(this.list.size());
         } catch (SQLException | ClassNotFoundException e) {

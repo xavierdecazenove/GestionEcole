@@ -157,6 +157,21 @@ public class Connexion {
         liste = new ArrayList<>();
 
         switch (table){
+
+            case "ING":
+                ArrayList<Integer> listIng = new ArrayList<>();
+                while (rset.next()) {
+                    int id = rset.getInt(1);
+                    listIng.add(id);
+                }
+                return listIng;
+            case "NomNiveau":
+                ArrayList<String> listNomNiveau = new ArrayList<>();
+                while (rset.next()) {
+                    String nom = rset.getString(1);
+                    listNomNiveau.add(nom);
+                }
+                return listNomNiveau;
             case "Personne" :
                 ArrayList<Personne> listPersonne = new ArrayList<>();
                 while (rset.next()) {
@@ -203,7 +218,15 @@ public class Connexion {
                 }
                 return listClasse;
             case "DetailBulletin" :
-                break;
+                ArrayList<DetailBulletin> listDetailBulletin = new ArrayList<>();
+                while (rset.next()) {
+                    int id = rset.getInt(1);
+                    int idEnseignement = rset.getInt(2);
+                    int idBulletin = rset.getInt(3);
+                    String appreciation = rset.getString(4);
+                    listDetailBulletin.add(new DetailBulletin(id,new Enseignement(idEnseignement,null,null,null),new Bulletin(idBulletin,null,null,appreciation),appreciation));
+                }
+                return listDetailBulletin;
             case "Discipline" :
                 ArrayList<Discipline> listDiscipline = new ArrayList<>();
                 while (rset.next()) {

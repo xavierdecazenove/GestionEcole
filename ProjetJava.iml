@@ -25,5 +25,17 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/lib/jfreechart-0.9.18" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/lib/jfreechart-0.9.18/src" />
+        </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/lib/jfreechart-0.9.18" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
 </module>

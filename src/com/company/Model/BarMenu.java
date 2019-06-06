@@ -1,10 +1,12 @@
 package com.company.Model;
 
 import com.company.Controller.Connexion;
+import com.company.Vue.Graphique;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class BarMenu extends JPanel implements ActionListener{
 
@@ -47,6 +49,16 @@ public class BarMenu extends JPanel implements ActionListener{
             com.company.Vue.Menu menu = new com.company.Vue.Menu(this.connexion);
             menu.setVisible(true);
         }
+
+        if (button.getText().equals("Statistique")){
+            try{
+                Graphique graphique = new Graphique(connexion);
+                graphique.setVisible(true);
+            }catch (SQLException | ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
+        }
+
         if(button.getText().equals("Quitter")){
             jFrame.dispose();
         }

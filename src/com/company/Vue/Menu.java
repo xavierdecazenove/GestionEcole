@@ -4,8 +4,6 @@ import com.company.Controller.Connexion;
 import com.company.Controller.Controller;
 import com.company.Model.*;
 import com.company.Model.Class.Niveau;
-import com.company.Model.Class.Personne;
-import com.sun.tools.internal.xjc.model.Model;
 
 import javax.swing.*;
 import java.awt.*;
