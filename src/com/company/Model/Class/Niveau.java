@@ -12,11 +12,6 @@ public class Niveau extends Requete {
     private String nom;
     private String[] entetes = {"Id","Nom"};
 
-    public Niveau(){
-        this.id = 0;
-        this.nom = "NONE";
-    }
-
     public Niveau(int id, String nom) {
         this.id = id;
         this.nom = nom;
@@ -40,8 +35,8 @@ public class Niveau extends Requete {
     @Override
     public Object getValueAt(int number) {
         if (number == 0) return this.id;
-        else if (number == 1) return this.nom;
-        else return null;
+        if (number == 1) return this.nom;
+        return null;
     }
 
     @Override

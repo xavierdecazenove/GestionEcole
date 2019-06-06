@@ -26,7 +26,6 @@ public class ModelTableau extends AbstractTableModel {
         try {
             Controller controller = new Controller(connexion);
             this.list = this.connexion.remplirChampsRequete("SELECT * FROM "+this.table, this.table);
-            System.out.println(this.list.size());
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }

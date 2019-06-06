@@ -336,8 +336,8 @@ public class Connexion {
                     int idAnneeSclolaire = rset.getInt(3);
                     int idNiveau = rset.getInt(4);
                     String nom = rset.getString(5);
-                    String nomEcole = rset.getString(6);
-                    String nomNiveau = rset.getString(7);
+                    String nomEcole = rset.getString(7);
+                    String nomNiveau = rset.getString(10);
 
                     listClasse.add(new Classe(id,new Ecole(idEcole,nomEcole),new AnneeScolaire(idAnneeSclolaire),new Niveau(idNiveau,nomNiveau),nom));
                 }
@@ -400,10 +400,10 @@ public class Connexion {
                     int id = rset.getInt(1);
                     int idClasse = rset.getInt(2);
                     int idPersonne = rset.getInt(3);
-                    String nomClasse = rset.getString(4);
-                    String nom = rset.getString(5);
-                    String prenom = rset.getString(6);
-                    String type = rset.getString(7);
+                    String nomClasse = rset.getString(8);
+                    String nom = rset.getString(10);
+                    String prenom = rset.getString(11);
+                    String type = rset.getString(12);
 
                     listInscription.add(new Inscription(id,new Classe(idClasse,null,null,null,nomClasse),new Personne(idPersonne,nom,prenom,type)));
                 }

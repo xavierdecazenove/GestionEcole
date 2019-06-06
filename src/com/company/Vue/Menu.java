@@ -21,18 +21,18 @@ public class Menu extends JFrame implements ActionListener {
     private JPanel content = new JPanel();
     private JPanel choix = new JPanel();
 
-    private JButton supprimer = new ModelButton("Supprimer");
-    private JButton ajouter = new ModelButton("Ajouter");
-    private JButton rechercher = new ModelButton("Rechercher");
+    private JButton supprimer = new ModelButton("Supprimer",new ImageIcon("asset/supprimer.png"));
+    private JButton ajouter = new ModelButton("Ajouter",new ImageIcon("asset/ajouter.png"));
+    private JButton rechercher = new ModelButton("Rechercher",new ImageIcon("asset/rechercher.png"));
 
-    private JButton ecole = new ModelButton("Ecoles");
-    private JButton niveau = new ModelButton("Niveaux");
-    private JButton classe = new ModelButton("Classes");
-    private JButton inscription = new ModelButton("Inscriptions");
-    private JButton personne = new ModelButton("Personnes");
-    private JButton trimestre = new ModelButton("Trimestres");
-    private JButton bulletin = new ModelButton("Bulletins");
-    private JButton evaluation = new ModelButton("Evaluations");
+    private JButton ecole = new ModelButton("Ecoles",new ImageIcon("asset/ecole.png"));
+    private JButton niveau = new ModelButton("Niveaux",new ImageIcon("asset/niveau.png"));
+    private JButton classe = new ModelButton("Classes",new ImageIcon("asset/classe.png"));
+    private JButton inscription = new ModelButton("Inscriptions",new ImageIcon("asset/inscription.png"));
+    private JButton personne = new ModelButton("Personnes",new ImageIcon("asset/personne.png"));
+    private JButton trimestre = new ModelButton("Trimestres",new ImageIcon("asset/trimestre.png"));
+    private JButton bulletin = new ModelButton("Bulletins",new ImageIcon("asset/bulletin.png"));
+    private JButton evaluation = new ModelButton("Evaluations",new ImageIcon("asset/evaluation.png"));
 
 
     private JTable table;

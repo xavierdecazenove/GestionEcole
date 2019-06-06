@@ -4,6 +4,7 @@ import com.company.Controller.Connexion;
 import com.company.Vue.Graphique;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -14,8 +15,8 @@ public class BarMenu extends JPanel implements ActionListener{
     private Connexion connexion;
 
     private JButton button1 = new ModelButton("Menu");
-    private JButton button2 = new ModelButton("Statistique");
-    private JButton button3 = new ModelButton("Quitter");
+    private JButton button2 = new ModelButton("Statistique",new ImageIcon("asset/statistique.png"));
+    private JButton button3 = new ModelButton("Quitter",new ImageIcon("asset/quitter.png"));
 
     public BarMenu(JFrame jFrame, Connexion connexion){
 
@@ -63,5 +64,11 @@ public class BarMenu extends JPanel implements ActionListener{
             jFrame.dispose();
         }
 
+    }
+
+    private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {
+        Image img = icon.getImage();
+        Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);
+        return new ImageIcon(resizedImage);
     }
 }
