@@ -12,7 +12,7 @@ public class BarMenu extends JPanel implements ActionListener{
     private Connexion connexion;
 
     private JButton button1 = new ModelButton("Menu");
-    private JButton button2 = new ModelButton("Menu2");
+    private JButton button2 = new ModelButton("Statistique");
     private JButton button3 = new ModelButton("Quitter");
 
     public BarMenu(JFrame jFrame, Connexion connexion){

@@ -4,6 +4,8 @@ import com.company.Controller.Connexion;
 import com.company.Controller.Controller;
 import com.company.Model.*;
 import com.company.Model.Class.Niveau;
+import com.company.Model.Class.Personne;
+import com.sun.tools.internal.xjc.model.Model;
 
 import javax.swing.*;
 import java.awt.*;
@@ -118,8 +120,25 @@ public class Menu extends JFrame implements ActionListener {
         }
 
         if(button.getText().equals("Ajouter")){
-            AjoutPersonne ajoutPersonne = new AjoutPersonne(modelTableau);
-            ajoutPersonne.setVisible(true);
+            if(modelTableau.getTable().equals("Ecole")){
+
+            }
+            if(modelTableau.getTable().equals("Niveau")){
+            }
+            if(modelTableau.getTable().equals("Classe")){
+            }
+            if(modelTableau.getTable().equals("Inscription")){
+            }
+            if(modelTableau.getTable().equals("Personne")){
+                Ajout ajout = new Ajout(modelTableau,"Personne", ModelAjoutData.accessLabel("Personne"), ModelAjoutData.accessTexField("Personne"),ModelAjoutData.accessComboBox("Personne"),ModelAjoutData.accessNumberLabelComboBox("Personne"));
+                ajout.setVisible(true);
+            }
+            if(modelTableau.getTable().equals("Trimestre")){
+            }
+            if(modelTableau.getTable().equals("Bulletin")){
+            }
+            if(modelTableau.getTable().equals("Evaluation")){
+            }
         }
         if(button.getText().equals("Rechercher")){
             int[] selection = table.getSelectedRows();

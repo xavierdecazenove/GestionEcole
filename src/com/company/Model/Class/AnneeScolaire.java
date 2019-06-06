@@ -9,10 +9,6 @@ public class AnneeScolaire extends Requete {
 
     private int id;
 
-    public AnneeScolaire(){
-        this.id = 0;
-    }
-
     public AnneeScolaire(int id) {
         this.id = id;
     }

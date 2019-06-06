@@ -1,7 +1,6 @@
 package com.company.Vue;
 
 import com.company.Controller.Connexion;
-import com.company.Controller.Controller;
 import com.company.Model.ModelContainer;
 import com.company.Model.ModelLabel;
 
