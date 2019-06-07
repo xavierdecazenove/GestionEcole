@@ -19,8 +19,8 @@ public class Niveau extends Requete {
 
     @Override
     public String requeteAdd() {
-        return "INSERT INTO Niveau VALUES ('"+getId()+"'," +
-                "','"+getNom()+")";
+        return "INSERT INTO Niveau VALUES ("+getId()+"," +
+                "'"+getNom()+"')";
     }
 
     public int getId() {

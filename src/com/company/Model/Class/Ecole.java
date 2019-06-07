@@ -19,8 +19,8 @@ public class Ecole extends Requete {
 
     @Override
     public String requeteAdd() {
-        return "INSERT INTO Ecole VALUES ('"+getId()+"'," +
-                "','"+getNom()+")";
+        return "INSERT INTO Ecole VALUES ("+getId()+","+
+                "'"+getNom()+"')";
     }
 
     public int getId() {

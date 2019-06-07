@@ -27,9 +27,9 @@ public class Trimestre extends Requete {
 
     @Override
     public String requeteAdd() {
-        return "INSERT INTO Trimestre VALUES ('"+getId()+"'," +
-                "'"+getAnneeScolaire().getId()+"',"+
-                "'"+getNumero()+"',"+
+        return "INSERT INTO Trimestre VALUES ("+getId()+"," +
+                ""+getAnneeScolaire().getId()+","+
+                ""+getNumero()+","+
                 "'"+getDateDebut()+"',"+
                 "'"+getDatefin()+")";
     }

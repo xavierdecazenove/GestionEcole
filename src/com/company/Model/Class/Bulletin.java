@@ -24,10 +24,10 @@ public class Bulletin extends Requete {
 
     @Override
     public String requeteAdd() {
-        return "INSERT INTO Classe VALUES ('"+getId()+"'," +
-                "'"+getTrimestre().getId()+"'," +
-                "'"+getInscription().getId()+
-                "','"+getAppreciation()+")";
+        return "INSERT INTO Classe VALUES ("+this.id+"," +
+                ""+this.trimestre.getId()+"," +
+                ""+this.inscription.getId()+
+                ",'"+this.appreciation+"')";
     }
 
     public int getId() {

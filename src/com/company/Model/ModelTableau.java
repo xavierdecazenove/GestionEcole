@@ -147,6 +147,7 @@ public class ModelTableau extends AbstractTableModel {
 
     public void addItem(Requete t) {
         try {
+            System.out.println(t.requeteAdd());
             this.connexion.executeUpdate(t.requeteAdd());
         } catch (SQLException e) {
             System.out.println("Requete failed : ADD");

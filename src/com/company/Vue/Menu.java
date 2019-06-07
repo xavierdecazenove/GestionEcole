@@ -3,6 +3,7 @@ package com.company.Vue;
 import com.company.Controller.Connexion;
 import com.company.Controller.Controller;
 import com.company.Model.*;
+import com.company.Model.Class.Ecole;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -78,7 +79,8 @@ public class Menu extends JFrame implements ActionListener {
 
         // Initialisation : Tableau
         this.content.setLayout(new GridBagLayout());
-        this.modelTableau = new ModelTableau(this.connexion,new ArrayList<>(),new String[0],"init");
+        String[] entetes = {"Id","Nom"};
+        this.modelTableau = new ModelTableau(this.connexion,new ArrayList<Ecole>(),entetes,"Ecole");
         table = new JTable(this.modelTableau);
         JScrollPane column = new JScrollPane(table);
 
@@ -123,24 +125,76 @@ public class Menu extends JFrame implements ActionListener {
         // Action : Affiche un formulaire pour ajouter un nouvel élément à la BDD
         if(button.getText().equals("Ajouter")){
             if(modelTableau.getTable().equals("Ecole")){
-                Ajout ajout = new Ajout(modelTableau,"Ecole", ModelAjoutData.accessLabel("Ecole"), ModelAjoutData.accessTexField("Ecole"),ModelAjoutData.accessComboBox("Ecole"),ModelAjoutData.accessNumberLabelComboBox("Ecole"));
+                Ajout ajout = null;
+                try {
+                    ajout = new Ajout(modelTableau,"Ecole", ModelAjoutData.accessLabel("Ecole"), ModelAjoutData.accessTexField("Ecole"),ModelAjoutData.accessComboBox("Ecole",connexion),ModelAjoutData.accessNumberLabelComboBox("Ecole"));
+                } catch (SQLException | ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }
                 ajout.setVisible(true);
             }
             if(modelTableau.getTable().equals("Niveau")){
+                Ajout ajout = null;
+                try {
+                    ajout = new Ajout(modelTableau,"Niveau", ModelAjoutData.accessLabel("Niveau"), ModelAjoutData.accessTexField("Niveau"),ModelAjoutData.accessComboBox("Niveau",connexion),ModelAjoutData.accessNumberLabelComboBox("Niveau"));
+                } catch (SQLException | ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+                ajout.setVisible(true);
             }
             if(modelTableau.getTable().equals("Classe")){
+                Ajout ajout = null;
+                try {
+                    ajout = new Ajout(modelTableau,"Classe", ModelAjoutData.accessLabel("Classe"), ModelAjoutData.accessTexField("Classe"),ModelAjoutData.accessComboBox("Classe",connexion),ModelAjoutData.accessNumberLabelComboBox("Classe"));
+                } catch (SQLException | ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+                ajout.setVisible(true);
             }
             if(modelTableau.getTable().equals("Inscription")){
+                Ajout ajout = null;
+                try {
+                    ajout = new Ajout(modelTableau,"Inscription", ModelAjoutData.accessLabel("Inscription"), ModelAjoutData.accessTexField("Inscription"),ModelAjoutData.accessComboBox("Inscription",connexion),ModelAjoutData.accessNumberLabelComboBox("Inscription"));
+                } catch (SQLException | ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+                ajout.setVisible(true);
             }
             if(modelTableau.getTable().equals("Personne")){
-                Ajout ajout = new Ajout(modelTableau,"Personne", ModelAjoutData.accessLabel("Personne"), ModelAjoutData.accessTexField("Personne"),ModelAjoutData.accessComboBox("Personne"),ModelAjoutData.accessNumberLabelComboBox("Personne"));
+                Ajout ajout = null;
+                try {
+                    ajout = new Ajout(modelTableau,"Personne", ModelAjoutData.accessLabel("Personne"), ModelAjoutData.accessTexField("Personne"),ModelAjoutData.accessComboBox("Personne",connexion),ModelAjoutData.accessNumberLabelComboBox("Personne"));
+                } catch (SQLException | ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }
                 ajout.setVisible(true);
             }
             if(modelTableau.getTable().equals("Trimestre")){
+                Ajout ajout = null;
+                try {
+                    ajout = new Ajout(modelTableau,"Trimestre", ModelAjoutData.accessLabel("Trimestre"), ModelAjoutData.accessTexField("Trimestre"),ModelAjoutData.accessComboBox("Trimestre",connexion),ModelAjoutData.accessNumberLabelComboBox("Trimestre"));
+                } catch (SQLException | ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+                ajout.setVisible(true);
             }
             if(modelTableau.getTable().equals("Bulletin")){
+                Ajout ajout = null;
+                try {
+                    ajout = new Ajout(modelTableau,"Bulletin", ModelAjoutData.accessLabel("Bulletin"), ModelAjoutData.accessTexField("Bulletin"),ModelAjoutData.accessComboBox("Bulletin",connexion),ModelAjoutData.accessNumberLabelComboBox("Bulletin"));
+                } catch (SQLException | ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+                ajout.setVisible(true);
             }
             if(modelTableau.getTable().equals("Evaluation")){
+                Ajout ajout = null;
+                try {
+                    ajout = new Ajout(modelTableau,"Evaluation", ModelAjoutData.accessLabel("Evaluations"), ModelAjoutData.accessTexField("Evaluations"),ModelAjoutData.accessComboBox("Evaluations",connexion),ModelAjoutData.accessNumberLabelComboBox("Evaluations"));
+                } catch (SQLException | ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+                ajout.setVisible(true);
             }
         }
         // Action : Recherche l'élément en lien avec celui sélectionner dans l'arbre des dépendances de la BDD

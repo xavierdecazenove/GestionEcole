@@ -24,9 +24,9 @@ public class Evaluation extends Requete {
 
     @Override
     public String requeteAdd() {
-        return "INSERT INTO Inscription VALUES ('"+this.id+"'," +
-                "'"+this.detailBulletin.getId()+"',"+
-                "'"+this.note+"',"+
+        return "INSERT INTO Evaluation VALUES ("+this.id+"," +
+                ""+this.detailBulletin.getId()+","+
+                ""+this.note+","+
                 "'"+this.appreciation+"')";
     }
 

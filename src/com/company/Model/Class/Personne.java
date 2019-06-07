@@ -79,7 +79,7 @@ public class Personne extends Requete {
 
     @Override
     public String requeteAdd(){
-        return "INSERT INTO Personne VALUES ('"+getId()+"'," +
+        return "INSERT INTO Personne VALUES ("+getId()+"," +
                 "'"+getNom()+"',"+
                 "'"+getPrenom()+"',"+
                 "'"+getType()+"')";

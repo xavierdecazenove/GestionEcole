@@ -22,9 +22,9 @@ public class Inscription extends Requete {
 
     @Override
     public String requeteAdd() {
-        return "INSERT INTO Inscription VALUES ('"+getId()+"'," +
-                "'"+this.classe.getId()+"',"+
-                "'"+this.personne.getId()+"')";
+        return "INSERT INTO Inscription VALUES ("+getId()+"," +
+                ""+this.classe.getId()+","+
+                ""+this.personne.getId()+")";
     }
 
     @Override

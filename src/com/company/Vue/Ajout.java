@@ -1,7 +1,7 @@
 package com.company.Vue;
 
-import com.company.Model.Class.Ecole;
-import com.company.Model.Class.Personne;
+import com.company.Controller.Connexion;
+import com.company.Model.Class.*;
 import com.company.Model.ModelButton;
 import com.company.Model.ModelContainer;
 import com.company.Model.ModelTableau;
@@ -10,7 +10,11 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 public class Ajout  extends JFrame implements ActionListener {
@@ -27,9 +31,11 @@ public class Ajout  extends JFrame implements ActionListener {
     private ArrayList<JComboBox> comboBoxes;
 
     private String table;
+    private Connexion connexion = new Connexion();
 
-    public Ajout(ModelTableau model, String table, ArrayList<JLabel> labels, ArrayList<JTextField> textFields, ArrayList<JComboBox> comboBoxes, int numberComboBox){
+    public Ajout(ModelTableau model, String table, ArrayList<JLabel> labels, ArrayList<JTextField> textFields, ArrayList<JComboBox> comboBoxes, int numberComboBox) throws SQLException, ClassNotFoundException {
 
+        this.connexion.connexionBDD("gestionEcole","root","root");
         this.model = model;
         this.labels = labels;
         this.textFields = textFields;
@@ -80,14 +86,57 @@ public class Ajout  extends JFrame implements ActionListener {
             }
             // Action : rajoute un item au tableau en fonction du Type
             if (ok){
+
                 if (table.equals("Personne")){
-                    Personne personne = new Personne(Integer.parseInt(textFields.get(0).getText()),textFields.get(1).getText(), textFields.get(2).getText(),(String) Objects.requireNonNull(this.comboBoxes.get(0).getSelectedItem()));
+                    Personne personne = new Personne(Integer.parseInt(textFields.get(0).getText()),textFields.get(1).getText(), textFields.get(2).getText(),(String) this.comboBoxes.get(0).getSelectedItem());
                     model.addItem(personne);
                     dispose();
                 }
                 if (table.equals("Ecole")){
+                    System.out.println(Integer.parseInt(textFields.get(0).getText())+"|"+textFields.get(1).getText());
                     Ecole ecole = new Ecole(Integer.parseInt(textFields.get(0).getText()),textFields.get(1).getText());
                     model.addItem(ecole);
+                    dispose();
+                }
+                if (table.equals("Niveau")){
+                    Niveau niveau = new Niveau(Integer.parseInt(textFields.get(0).getText()),textFields.get(1).getText());
+                    model.addItem(niveau);
+                    dispose();
+                }
+                if (table.equals("Classe")){
+                    Classe classe = new Classe(Integer.parseInt(textFields.get(0).getText()),new Ecole(Integer.parseInt((String) comboBoxes.get(0).getSelectedItem()),""),new AnneeScolaire(Integer.parseInt((String) comboBoxes.get(1).getSelectedItem())),new Niveau(Integer.parseInt((String) comboBoxes.get(2).getSelectedItem()),""),textFields.get(1).getText());
+                    model.addItem(classe);
+                    dispose();
+                }
+                if (table.equals("Inscription")){
+                    try {
+                        ArrayList<Personne> personnes = this.connexion.remplirChampsRequete("SELECT * FROM Personne WHERE Personne.Nom = "+comboBoxes.get(0).getSelectedItem(),"Personne");
+                        Inscription inscription = new Inscription(Integer.parseInt(textFields.get(0).getText()),new Classe(Integer.parseInt((String) comboBoxes.get(0).getSelectedItem()),null, null, null,""),new Personne(personnes.get(0).getId(),personnes.get(0).getNom(),personnes.get(0).getPrenom(),personnes.get(0).getType()));
+                        model.addItem(inscription);
+                        dispose();
+                    } catch (SQLException | ClassNotFoundException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+                if (table.equals("Trimestre")){
+                    try {
+                        Date date1=new SimpleDateFormat("YYYY-MM-DD").parse(textFields.get(1).getText());
+                        Date date2=new SimpleDateFormat("YYYY-MM-DD").parse(textFields.get(2).getText());
+                        Trimestre trimestre = new Trimestre(Integer.parseInt(textFields.get(0).getText()),new AnneeScolaire(Integer.parseInt((String) comboBoxes.get(1).getSelectedItem())),Integer.parseInt((String) comboBoxes.get(1).getSelectedItem()),date1,date2);
+                        model.addItem(trimestre);
+                        dispose();
+                    } catch (ParseException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+                if (table.equals("Bulletin")){
+                    Bulletin bulletin = new Bulletin(Integer.parseInt(textFields.get(0).getText()),new Trimestre(Integer.parseInt((String) comboBoxes.get(0).getSelectedItem()),null,0,null,null),new Inscription(Integer.parseInt((String) comboBoxes.get(1).getSelectedItem()),null,null),textFields.get(1).getText());
+                    model.addItem(bulletin);
+                    dispose();
+                }
+                if (table.equals("Evaluation")){
+                    Evaluation evaluation = new Evaluation(Integer.parseInt(textFields.get(0).getText()),new DetailBulletin((Integer) comboBoxes.get(0).getSelectedItem(),null,null,""),Integer.parseInt(textFields.get(1).getText()),textFields.get(2).getText());
+                    model.addItem(evaluation);
                     dispose();
                 }
                 dispose();

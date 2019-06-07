@@ -52,11 +52,11 @@ public class Classe extends Requete {
 
     @Override
     public String requeteAdd() {
-        return "INSERT INTO Classe VALUES ('"+getId()+"'," +
-                "'"+getEcole().getId()+"'," +
-                "'"+getAnneeScolaire().getId()+
-                "','"+getNiveau().getId()+"',"+
-                "','"+getNom()+")";
+        return "INSERT INTO Classe VALUES ("+this.id+"," +
+                ""+this.ecole.getId()+"," +
+                ""+this.anneeScolaire.getId()+
+                ","+this.niveau.getId()+","+
+                "'"+this.nom+"')";
     }
 
     @Override
