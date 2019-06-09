@@ -31,7 +31,7 @@ public class Trimestre extends Requete {
                 ""+getAnneeScolaire().getId()+","+
                 ""+getNumero()+","+
                 "'"+getDateDebut()+"',"+
-                "'"+getDatefin()+")";
+                "'"+getDatefin()+"')";
     }
 
     public int getId() {
@@ -55,7 +55,7 @@ public class Trimestre extends Requete {
 
     @Override
     public ArrayList<Requete> recherche(Connexion connexion) throws SQLException, ClassNotFoundException {
-        return connexion.remplirChampsRequete("SELECT * FROM Bulletin WHERE Bulletin.Id = "+this.id,"Bulletin");
+        return connexion.remplirChampsRequete("SELECT * FROM Bulletin,Trimestre,Inscription WHERE Trimestre.Numero = "+this.numero+" AND Trimestre.IdAnneeScolaire = "+this.anneeScolaire.getId()+" AND "+this.id+" = Bulletin.IdTrimestre AND Inscription.Id = Bulletin.IdInscription","Bulletin");
     }
 
     public void setId(int id) {

@@ -1,6 +1,7 @@
 package com.company.Vue;
 
 import com.company.Controller.Connexion;
+import com.company.Model.ModelButton;
 import com.company.Model.ModelContainer;
 import com.company.Model.ModelLabel;
 
@@ -23,7 +24,7 @@ public class ConnectionBDD extends JFrame implements ActionListener{
     private JTextField nomUtilisatuer_tf = new JTextField();
     private JPasswordField mdp_tf = new JPasswordField();
 
-    private JButton login = new JButton("Connection");
+    private JButton login = new ModelButton("Connection");
 
     private Connexion connexion = new Connexion();
 
@@ -92,15 +93,14 @@ public class ConnectionBDD extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            this.connexion.connexionBDD("gestionEcole","root","root");
-            //Connexion connexion = new Connexion(nomBDD_tf.getText(),nomUtilisatuer_tf.getText(),mdp_tf.getText());
+            this.connexion.connexionBDD(nomBDD_tf.getText(),nomUtilisatuer_tf.getText(),mdp_tf.getText());
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             dispose();
             Menu menu = new Menu(this.connexion);
             menu.setVisible(true);
             System.out.println("Connexion à la BDD : Sucess");
         } catch (SQLException | ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Connexion à la base de donnée de l'école à échouer");
+            JOptionPane.showMessageDialog(null, "Connexion à la base de donnée de l'école à échouer... Veuillez réessayer");
         }
     }
 }

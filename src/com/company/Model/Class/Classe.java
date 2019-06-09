@@ -47,7 +47,7 @@ public class Classe extends Requete {
 
     @Override
     public ArrayList<Requete> recherche(Connexion connexion) throws SQLException, ClassNotFoundException {
-        return connexion.remplirChampsRequete("SELECT Inscription.*,Classe.Nom,Personne.Nom,Personne.Prenom,Personne.Type FROM Inscription,Classe,Personne WHERE Classe.Id = "+this.id+" AND Inscription.IdPersonne = Personne.Id","Inscription");
+        return connexion.remplirChampsRequete("SELECT Inscription.*,Classe.Nom,Personne.Nom,Personne.Prenom,Personne.Type FROM Inscription,Classe,Personne WHERE Inscription.IdPersonne = Personne.Id AND Inscription.IdClasse = Classe.Id AND Classe.Id = "+this.id,"Inscription");
     }
 
     @Override

@@ -60,7 +60,7 @@ public class Personne extends Requete {
     @Override
     public ArrayList<Requete> recherche(Connexion connexion) throws SQLException, ClassNotFoundException {
         if (this.type.equals("Eleve")){
-            return connexion.remplirChampsRequete("SELECT * FROM Inscription WHERE Inscription.IdPersonne = "+this.id,"Inscription");
+            return connexion.remplirChampsRequete("SELECT Bulletin.*,Trimestre.*,Inscription.* FROM Bulletin,Trimestre,Inscription WHERE Inscription.IdPersonne = "+this.id+" AND Inscription.Id = Bulletin.IdInscription AND Bulletin.IdTrimestre = Trimestre.Id","Bulletin");
         }else {
             return null;
         }

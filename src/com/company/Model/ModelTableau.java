@@ -5,6 +5,7 @@ import javax.swing.table.AbstractTableModel;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+// Modèle du tableau qui se veut dynamique (par rapport à l'élément envoyer en paramètre)
 public class ModelTableau extends AbstractTableModel {
 
     private ArrayList<Requete> list;

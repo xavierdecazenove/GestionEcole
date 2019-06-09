@@ -24,7 +24,7 @@ public class Bulletin extends Requete {
 
     @Override
     public String requeteAdd() {
-        return "INSERT INTO Classe VALUES ("+this.id+"," +
+        return "INSERT INTO Bulletin VALUES ("+this.id+"," +
                 ""+this.trimestre.getId()+"," +
                 ""+this.inscription.getId()+
                 ",'"+this.appreciation+"')";
@@ -50,7 +50,7 @@ public class Bulletin extends Requete {
 
     @Override
     public ArrayList<Requete> recherche(Connexion connexion) throws SQLException, ClassNotFoundException {
-        return connexion.remplirChampsRequete("SELECT Evaluation.* FROM Evaluation,Bulletin,DetailBulletin WHERE "+this.id+" = DetailBulletin.IdBulletin AND DetailBulletin.Id = Evaluation.IdDetailBulletin","Evaluation");
+        return connexion.remplirChampsRequete("SELECT Evaluation.* FROM Evaluation,Bulletin,DetailBulletin WHERE Evaluation.IdDetailBulletin = DetailBulletin.Id AND DetailBulletin.IdBulletin = Bulletin.Id AND Bulletin.Id = " + this.id,"Evaluation");
     }
 
     public void setId(int id) {

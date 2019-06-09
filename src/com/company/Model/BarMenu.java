@@ -4,11 +4,12 @@ import com.company.Controller.Connexion;
 import com.company.Vue.Graphique;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+
+// Modèle de la bar de menu du Haut : MENU, STATISTIQUE, QUITTER
 public class BarMenu extends JPanel implements ActionListener{
 
     private JFrame jFrame;
@@ -64,11 +65,5 @@ public class BarMenu extends JPanel implements ActionListener{
             jFrame.dispose();
         }
 
-    }
-
-    private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {
-        Image img = icon.getImage();
-        Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);
-        return new ImageIcon(resizedImage);
     }
 }

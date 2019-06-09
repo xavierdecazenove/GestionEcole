@@ -3,6 +3,7 @@ package com.company.Model;
 import javax.swing.*;
 import java.awt.*;
 
+// Model de couleur de fond d'une fenêtre classique de l'app
 public class ModelContainer extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

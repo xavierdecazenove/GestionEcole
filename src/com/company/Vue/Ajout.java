@@ -1,6 +1,7 @@
 package com.company.Vue;
 
 import com.company.Controller.Connexion;
+import com.company.Controller.Controller;
 import com.company.Model.Class.*;
 import com.company.Model.ModelButton;
 import com.company.Model.ModelContainer;
@@ -110,8 +111,9 @@ public class Ajout  extends JFrame implements ActionListener {
                 }
                 if (table.equals("Inscription")){
                     try {
-                        ArrayList<Personne> personnes = this.connexion.remplirChampsRequete("SELECT * FROM Personne WHERE Personne.Nom = "+comboBoxes.get(0).getSelectedItem(),"Personne");
-                        Inscription inscription = new Inscription(Integer.parseInt(textFields.get(0).getText()),new Classe(Integer.parseInt((String) comboBoxes.get(0).getSelectedItem()),null, null, null,""),new Personne(personnes.get(0).getId(),personnes.get(0).getNom(),personnes.get(0).getPrenom(),personnes.get(0).getType()));
+                        ArrayList<Personne> personnes = this.connexion.remplirChampsRequete("SELECT * FROM Personne WHERE Nom = '"+comboBoxes.get(1).getSelectedItem()+"'","Personne");
+                        ArrayList<Classe> classes = this.connexion.remplirChampsRequete("SELECT * FROM Classe WHERE Id = "+Integer.parseInt((String) comboBoxes.get(0).getSelectedItem()),"Classe2");
+                        Inscription inscription = new Inscription(Integer.parseInt(textFields.get(0).getText()),new Classe(Integer.parseInt((String) comboBoxes.get(0).getSelectedItem()),null, null, null,classes.get(0).getNom()),new Personne(personnes.get(0).getId(),personnes.get(0).getNom(),personnes.get(0).getPrenom(),personnes.get(0).getType()));
                         model.addItem(inscription);
                         dispose();
                     } catch (SQLException | ClassNotFoundException ex) {
@@ -120,9 +122,11 @@ public class Ajout  extends JFrame implements ActionListener {
                 }
                 if (table.equals("Trimestre")){
                     try {
-                        Date date1=new SimpleDateFormat("YYYY-MM-DD").parse(textFields.get(1).getText());
-                        Date date2=new SimpleDateFormat("YYYY-MM-DD").parse(textFields.get(2).getText());
-                        Trimestre trimestre = new Trimestre(Integer.parseInt(textFields.get(0).getText()),new AnneeScolaire(Integer.parseInt((String) comboBoxes.get(1).getSelectedItem())),Integer.parseInt((String) comboBoxes.get(1).getSelectedItem()),date1,date2);
+                        Date date1= new SimpleDateFormat("yyyy-MM-dd").parse(textFields.get(1).getText());
+                        Date date2= new SimpleDateFormat("yyyy-MM-dd").parse(textFields.get(2).getText());
+                        java.sql.Date dateFormat1 = new java.sql.Date(date1.getTime());
+                        java.sql.Date dateFormat2 = new java.sql.Date(date2.getTime());
+                        Trimestre trimestre = new Trimestre(Integer.parseInt(textFields.get(0).getText()),new AnneeScolaire(Integer.parseInt((String) comboBoxes.get(1).getSelectedItem())),Integer.parseInt((String) comboBoxes.get(0).getSelectedItem()),dateFormat1,dateFormat2);
                         model.addItem(trimestre);
                         dispose();
                     } catch (ParseException ex) {
@@ -130,12 +134,17 @@ public class Ajout  extends JFrame implements ActionListener {
                     }
                 }
                 if (table.equals("Bulletin")){
-                    Bulletin bulletin = new Bulletin(Integer.parseInt(textFields.get(0).getText()),new Trimestre(Integer.parseInt((String) comboBoxes.get(0).getSelectedItem()),null,0,null,null),new Inscription(Integer.parseInt((String) comboBoxes.get(1).getSelectedItem()),null,null),textFields.get(1).getText());
-                    model.addItem(bulletin);
-                    dispose();
+                    try {
+                        ArrayList<Trimestre> trimestres = connexion.remplirChampsGlobal("SELECT * FROM Trimestre WHERE Id = "+Integer.parseInt((String) comboBoxes.get(0).getSelectedItem()),"Trimestre");
+                        Bulletin bulletin = new Bulletin(Integer.parseInt(textFields.get(0).getText()),new Trimestre(Integer.parseInt((String) comboBoxes.get(0).getSelectedItem()),null,trimestres.get(0).getNumero(),null,null),new Inscription(Integer.parseInt((String) comboBoxes.get(1).getSelectedItem()),null,null),textFields.get(1).getText());
+                        model.addItem(bulletin);
+                        dispose();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
                 }
                 if (table.equals("Evaluation")){
-                    Evaluation evaluation = new Evaluation(Integer.parseInt(textFields.get(0).getText()),new DetailBulletin((Integer) comboBoxes.get(0).getSelectedItem(),null,null,""),Integer.parseInt(textFields.get(1).getText()),textFields.get(2).getText());
+                    Evaluation evaluation = new Evaluation(Integer.parseInt(textFields.get(0).getText()),new DetailBulletin(Integer.parseInt((String) comboBoxes.get(0).getSelectedItem()),null,null,""),Integer.parseInt(textFields.get(1).getText()),textFields.get(2).getText());
                     model.addItem(evaluation);
                     dispose();
                 }

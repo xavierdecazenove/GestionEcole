@@ -5,6 +5,8 @@ import com.company.Model.Class.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
+/// Classe permmettant l'affichage des données de chacunes des catégories dans le tableau
 public class Controller {
 
     private Connexion connexion;

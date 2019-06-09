@@ -8,6 +8,8 @@ import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
+// Classe Modèle permettant l'affiche de formulmaire différents en fonstion du formulaire d'ajout demander
 public class ModelAjoutData {
 
     public static ArrayList<JLabel> accessLabel(String table) {

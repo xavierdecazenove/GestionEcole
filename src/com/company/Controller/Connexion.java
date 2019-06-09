@@ -12,18 +12,6 @@ public class Connexion {
     private static Statement stmt;
     private static ResultSet rset;
     private static ResultSetMetaData rsetMeta;
-    /**
-     * ArrayList public pour les tables
-     */
-    public static ArrayList<String> tables = new ArrayList<>();
-    /**
-     * ArrayList public pour les requêtes de sélection
-     */
-    public static ArrayList<String> requetes = new ArrayList<>();
-    /**
-     * ArrayList public pour les requêtes de MAJ
-     */
-    public static ArrayList<String> requetesMaj = new ArrayList<>();
 
     public Connexion(){
         // Constructeur par défault
@@ -50,91 +38,6 @@ public class Connexion {
 
         // création d'un ordre SQL (statement)
         stmt = conn.createStatement();
-
-        System.out.println("Sucess");
-    }
-
-    /**
-     * Constructeur avec 4 paramètres : username et password ECE, login et
-     * password de la BDD à distance sur le serveur de l'ECE
-     * @param usernameECE
-     * @param passwordECE
-     * @param loginDatabase
-     * @param passwordDatabase
-     * @throws java.sql.SQLException
-     * @throws java.lang.ClassNotFoundException
-     */
-    public Connexion(String usernameECE, String passwordECE, String loginDatabase, String passwordDatabase) throws SQLException, ClassNotFoundException {
-        // chargement driver "com.mysql.jdbc.Driver"
-        Class.forName("com.mysql.jdbc.Driver");
-
-        // Connexion via le tunnel SSH avec le username et le password ECE
-
-    }
-
-    /**
-     * Méthode qui ajoute la table en parametre dans son ArrayList
-     *
-     * @param table
-     */
-    public void ajouterTable(String table) {
-        tables.add(table);
-    }
-
-    /**
-     * Méthode qui ajoute la requete de selection en parametre dans son
-     * ArrayList
-     *
-     * @param requete
-     */
-    public void ajouterRequete(String requete) {
-        requetes.add(requete);
-    }
-
-    /**
-     * Méthode qui ajoute la requete de MAJ en parametre dans son
-     * ArrayList
-     *
-     * @param requete
-     */
-    public void ajouterRequeteMaj(String requete) {
-        requetesMaj.add(requete);
-    }
-
-    /**
-     * Méthode qui retourne l'ArrayList des champs de la table en parametre
-     *
-     * @param table
-     * @return
-     * @throws java.sql.SQLException
-     */
-    public ArrayList remplirChampsTable(String table) throws SQLException {
-        // récupération de l'ordre de la requete
-        rset = stmt.executeQuery("select * from " + table);
-
-        // récupération du résultat de l'ordre
-        rsetMeta = rset.getMetaData();
-
-        // calcul du nombre de colonnes du resultat
-        int nbColonne = rsetMeta.getColumnCount();
-
-        // creation d'une ArrayList de String
-        ArrayList<String> liste;
-        liste = new ArrayList<>();
-        String champs = "";
-        // Ajouter tous les champs du resultat dans l'ArrayList
-        for (int i = 0; i < nbColonne; i++) {
-            champs = champs + " " + rsetMeta.getColumnLabel(i + 1);
-        }
-
-        // ajouter un "\n" à la ligne des champs
-        champs = champs + "\n";
-
-        // ajouter les champs de la ligne dans l'ArrayList
-        liste.add(champs);
-
-        // Retourner l'ArrayList
-        return liste;
     }
 
     /**
@@ -150,14 +53,10 @@ public class Connexion {
         // récupération du résultat de l'ordre
         rsetMeta = rset.getMetaData();
 
-        // calcul du nombre de colonnes du resultat
-        int nbColonne = rsetMeta.getColumnCount();
-
         ArrayList liste;
         liste = new ArrayList<>();
 
         switch (table){
-
             case "ING":
                 ArrayList<Integer> listIng = new ArrayList<>();
                 while (rset.next()) {
@@ -217,6 +116,18 @@ public class Connexion {
                     listClasse.add(new Classe(id,new Ecole(idEcole,nomEcole),new AnneeScolaire(idAnneeSclolaire),new Niveau(idNiveau,nomNiveau),nom));
                 }
                 return listClasse;
+            case "Classe2" :
+                ArrayList<Classe> listClasse2 = new ArrayList<>();
+                while (rset.next()) {
+                    int id = rset.getInt(1);
+                    int idEcole = rset.getInt(2);
+                    int idAnneeSclolaire = rset.getInt(3);
+                    int idNiveau = rset.getInt(4);
+                    String nom = rset.getString(5);
+
+                    listClasse2.add(new Classe(id,new Ecole(idEcole,""),new AnneeScolaire(idAnneeSclolaire),new Niveau(idNiveau,""),nom));
+                }
+                return listClasse2;
             case "DetailBulletin" :
                 ArrayList<DetailBulletin> listDetailBulletin = new ArrayList<>();
                 while (rset.next()) {
@@ -286,12 +197,11 @@ public class Connexion {
     }
 
 
-
+/// requete pour aller chercher les données nécessaires à afficher le tableau de chaque catégories
     public ArrayList remplirChampsGlobal(String requete, String table) throws SQLException {
 
         rset = stmt.executeQuery(requete);
         rsetMeta = rset.getMetaData();
-        int nbColonne = rsetMeta.getColumnCount();
 
         ArrayList liste;
         liste = new ArrayList<>();

@@ -48,7 +48,7 @@ public class Inscription extends Requete {
 
     @Override
     public ArrayList<Requete> recherche(Connexion connexion) throws SQLException, ClassNotFoundException {
-        return connexion.remplirChampsRequete("SELECT * FROM Bulletin,Trimestre,Inscription WHERE Trimestre.Id = Bulletin.IdTrimestre AND Bulletin.IdInscription = "+ this.id ,"Bulletin");
+        return connexion.remplirChampsRequete("SELECT * FROM Bulletin,Trimestre,Inscription WHERE Trimestre.Id = Bulletin.IdTrimestre AND Bulletin.IdInscription = Inscription.Id AND Inscription.Id = "+this.id,"Bulletin");
     }
 
 
