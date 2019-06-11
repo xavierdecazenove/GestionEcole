@@ -219,7 +219,7 @@ INSERT INTO Bulletin (Id, IdTrimestre, IdInscription, Appreciation) VALUES (401,
 INSERT INTO Bulletin (Id, IdTrimestre, IdInscription, Appreciation) VALUES (402,351,300,"Un excellent trimestre, Bravo !");
 INSERT INTO Bulletin (Id, IdTrimestre, IdInscription, Appreciation) VALUES (403,352,300,"Un excellent trimestre, Bravo !");
 -- Bulletin inscription 301  TD1 ING1 2018 trimestre 1,2,3 --
-INSERT INTO Bulletin (Id, IdTrimestre, IdInscription, Appreciation) VALUES (448,352,301,"Un excellent trimestre, Bravo !");
+INSERT INTO Bulletin (Id, IdTrimestre, IdInscription, Appreciation) VALUES (448,350,301,"Un excellent trimestre, Bravo !");
 INSERT INTO Bulletin (Id, IdTrimestre, IdInscription, Appreciation) VALUES (404,351,301,"Un excellent trimestre, Bravo !");
 INSERT INTO Bulletin (Id, IdTrimestre, IdInscription, Appreciation) VALUES (405,352,301,"Un excellent trimestre, Bravo !");
 -- Bulletin inscription 302  TD2 ING1 2018 trimestre 1,2,3 --

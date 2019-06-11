@@ -150,11 +150,11 @@ public class ModelTableau extends AbstractTableModel {
         try {
             System.out.println(t.requeteAdd());
             this.connexion.executeUpdate(t.requeteAdd());
+            this.list.add(t);
+            fireTableRowsInserted(this.list.size() -1, this.list.size() -1);
         } catch (SQLException e) {
             System.out.println("Requete failed : ADD");
         }
-        this.list.add(t);
-        fireTableRowsInserted(this.list.size() -1, this.list.size() -1);
     }
 
     public void removeItem(int rowIndex) {
